@@ -122,6 +122,31 @@ gulp.task('scripts-specific-plugins-plugins', ['scripts-plugins'], function() {
         .pipe(concat('vorlon.babylonInspector.dashboard.min.js'))
         .pipe(gulp.dest('Plugins/release/plugins/babylonInspector/'));
         
+    // Office
+    gulp.src([
+        'Plugins/release/plugins/office/vorlon.office.interfaces.js',
+        'Plugins/release/plugins/office/vorlon.office.tools.js',
+        'Plugins/release/plugins/office/vorlon.office.document.js',
+        'Plugins/release/plugins/office/vorlon.office.outlook.js',
+        'Plugins/release/plugins/office/vorlon.office.powerpoint.js',
+        'Plugins/release/plugins/office/vorlon.office.dashboard.js'
+    ])
+        .pipe(concat('vorlon.office.dashboard.js'))
+        .pipe(gulp.dest('Plugins/release/plugins/office/'));
+
+    
+
+     gulp.src([
+        'Plugins/release/plugins/office/vorlon.office.interfaces.min.js',
+        'Plugins/release/plugins/office/vorlon.office.tools.min.js',
+        'Plugins/release/plugins/office/vorlon.office.document.min.js',
+        'Plugins/release/plugins/office/vorlon.office.outlook.min.js',
+        'Plugins/release/plugins/office/vorlon.office.powerpoint.min.js',
+        'Plugins/release/plugins/office/vorlon.office.dashboard.min.js'
+    ])
+        .pipe(concat('vorlon.office.dashboard.min.js'))
+        .pipe(gulp.dest('Plugins/release/plugins/office/'));     
+           
     // NG Inspector
     gulp.src([
         'Plugins/release/plugins/ngInspector/vorlon.ngInspector.interfaces.js',
@@ -195,9 +220,18 @@ gulp.task('scripts-plugins', ['concat-webstandards-rules-plugins'], function () 
             './Plugins/**/webstandards/vorlon.webstandards.client.js',
             './Plugins/**/webstandards/vorlon.webstandards.interfaces.js',
             './Plugins/**/webstandards/vorlon.webstandards.dashboard.js',
+            './Plugins/**/office/vorlon.office.client.js',
+            './Plugins/**/office/vorlon.office.interfaces.js',
+            './Plugins/**/office/vorlon.office.tools.js',
+            './Plugins/**/office/vorlon.office.outlook.js',
+            './Plugins/**/office/vorlon.office.powerpoint.js',
+            './Plugins/**/office/vorlon.office.document.js',
+            './Plugins/**/office/vorlon.office.dashboard.js',
             './Plugins/**/babylonInspector/vorlon.babylonInspector.client.js',
             './Plugins/**/babylonInspector/vorlon.babylonInspector.interfaces.js',
-            './Plugins/**/babylonInspector/vorlon.babylonInspector.dashboard.js'
+            './Plugins/**/babylonInspector/vorlon.babylonInspector.dashboard.js',
+            './Plugins/**/uwp/vorlon.uwp.client.js',
+            './Plugins/**/uwp/vorlon.uwp.dashboard.js',
         ])
         .pipe(rename(function (path) {
                 path.extname = ".min.js";
@@ -305,13 +339,8 @@ gulp.task('typescript-to-js-server', function() {
 gulp.task('build-server', ['typescript-to-js-server'], function() {
 	//copy server files to desktop app
   return gulp.src([
-  		'./config.json',
-  		'cert/**',
-  		'config/**',
-  		'public/**',
-  		'Scripts/**',
-  		'views/**',
-  	], { base: './Plugins' })
+  		'./server/**/*.*'
+  	])
   	.pipe(gulp.dest('./desktop/app/vorlon'));
 });
 
